@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "navbar.html" %}
+<section class="hero is-primary is-bold is-large">
+
+
+  <div class="hero-body">
+
+
+
+
+  	<h1>Image AI</h1>
+  	 <div id="console"></div>
+
+    <h2 class="text-monospace" style="margin: 20px">Upload an image from your computer!</h2>
+    <!-- Add an image that we will use to test -->
+
+    <div>
+        <form id="upload-file" method="post" enctype="multipart/form-data">
+            <label for="imageUpload" class="upload-label">
+                Choose...
+            </label>
+            <input onchange="onFileSelected(event)" type="file" name="image" id="imageUpload" accept=".png, .jpg, .jpeg">
+        </form>
+    
+        <div class="image-section" style="display:none;">
+            <div class="img-preview">
+                <div id="imagePreview">
+                </div>
+            </div>
+            <div>
+                <button style="margin:1.5em" type="button" class="btn btn-primary btn-lg " id="btn-predict">Predict!</button>
+            </div>
+        </div>
+
+
+
+        <img id="myimage" style="display:none">
+    
+        <div class="loader" style="display:none;"></div>
+
+        <!-- Stripe payment-->
+        <form action="/user/charge" method="post">
+		    <article>
+		      <label>
+		      </label>
+		    </article>
+
+		    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+
+		            data-key="pk_test_TQmy1LFbeJ6tgZLOdzT4pZRh00mJ3yq97c"
+		            data-description="A Flask Charge"
+		            data-amount="1000"
+			    data-email="{{ email }}"
+		            data-locale="auto"></script>
+		</form>
+
+    
+        <p id="result-text" class="text-monospace" style='margin-left: 20px'>This is an image of a(n)...</p>
+        <div class="font-weight-bold text-monospace" id="result" style="margin-left: 20px"> 
+            <h2></h2>
+        </div>
+    
+    </div>
+  	
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+
+<script src="https://unpkg.com/@tensorflow/tfjs"></script>
+<script src="https://unpkg.com/@tensorflow-models/mobilenet"></script> 
+
+<script src="../static/js/index.js"></script>
+<script src="../static/js/img.js"></script>
+<script src="../static/js/scripts.js"></script>
+
+{% endblock %}
+
+
+
+
+
