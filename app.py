@@ -73,7 +73,7 @@ def settings():
                 password = helpers.hash_password(password)
             email = request.form['email']
             helpers.change_user(password=password, email=email)
-            return json.dumps({'status': 'Saved'})
+            return (json.dumps({'status': 'Saved'}), {'Content-Type': 'application/json'})
         user = helpers.get_user()
         return render_template('settings.html', user=user)
     return redirect(url_for('login'))
