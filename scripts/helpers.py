@@ -56,8 +56,7 @@ def hash_password(password):
 
 def credentials_valid(username, password):
     with session_scope() as s:
-        user = s.query(tabledef.User).filter(tabledef.User.username.in_([username])).first()
-        if user:
+        if user := s.query(tabledef.User).filter(tabledef.User.username.in_([username])).first():
             return bcrypt.checkpw(password.encode('utf8'), user.password.encode('utf8'))
         else:
             return False
